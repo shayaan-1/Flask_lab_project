@@ -24,7 +24,6 @@ def data():
     if not name:
         return jsonify({'error': 'Missing "name" field'}), 400
 
-
     return jsonify({'message': f'Hello, {name}!'}), 200
 
 

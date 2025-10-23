@@ -4,4 +4,4 @@ mysql-connector-python==8.0.33
 pytest==7.4.3
 pytest-mock==3.11.1
 requests==2.31.0
-flake8==6.1.0
+flake8==6.1.0 
