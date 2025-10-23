@@ -1,88 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Todo App</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
-
-<body class="bg-gray-100 min-h-screen py-8">
-    <div class="container mx-auto max-w-2xl px-4">
-        <h1 class="text-4xl font-bold text-center mb-8 text-blue-600">Todo
-
-            Application</h1>
-
-        <!-- Add Todo Form -->
-
-        <div class="bg-white rounded-lg shadow-md p-6 mb-8">
-            <h2 class="text-2xl font-semibold mb-4">Add New Todo</h2>
-            <form method="POST" action="/add" class="space-y-4">
-                <div>
-                    <label class="block text-gray-700 font-medium mb-2">Name:
-
-                    </label>
-
-                    <input type="text" name="name" required class="w-full px-4 py-2 border border-gray-300
-
-rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter your name">
-
-                </div>
-                <div>
-                    <label class="block text-gray-700 font-medium mb-2">Task:
-
-                    </label>
-
-                    <textarea name="task" required rows="3" class="w-full px-4 py-2 border border-gray-300
-
-rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Describe your task"></textarea>
-
-                </div>
-                <button type="submit" class="w-full bg-blue-500 hover:bg-blue-600 text-white
-
-font-bold py-2 px-4 rounded-lg transition duration-200">
-
-                    Add Todo
-                </button>
-            </form>
-        </div>
-        <!-- Todo List -->
-        <div class="bg-white rounded-lg shadow-md p-6">
-            <h2 class="text-2xl font-semibold mb-4">Todo List</h2>
-            {% if todos %}
-            <div class="space-y-4">
-                {% for todo in todos %}
-                <div class="border-l-4 border-blue-500 bg-gray-50 p-4
-
-rounded">
-
-                    <div class="font-semibold text-lg text-gray-800">{{
-
-                        todo.name }}</div>
-
-                    <div class="text-gray-600 mt-2">{{ todo.task }}</div>
-                    <div class="text-sm text-gray-400 mt-2">{{
-
-                        todo.created_at }}</div>
-                </div>
-                {% endfor %}
-            </div>
-            {% else %}
-            <p class="text-gray-500 text-center py-8">No todos yet. Add
-
-                one above!</p>
-
-            Step 5: Create Dockerfile
-            Create Dockerfile :
-
-            Explanation:
-
-            Step 6: Create .dockerignore (Optional)
-            Create .dockerignore :
-            {% endif %}
-        </div>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Flask Lab Project</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Flask Lab Project</h1>
+      <form id="nameForm">
+        <label for="name">Enter your name:</label>
+        <input id="name" name="name" placeholder="Ali" required />
+        <button type="submit">Submit</button>
+      </form>
+      <h1>Heelooooooooo</h1>
+      <div id="result"></div>
     </div>
-</body>
 
+    <script>
+      document
+        .getElementById("nameForm")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const name = document.getElementById("name").value;
+          const resultDiv = document.getElementById("result");
+          resultDiv.textContent = "Sending...";
+
+          try {
+            const res = await fetch("/data", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ name }),
+            });
+            const json = await res.json();
+            if (res.ok) {
+              resultDiv.textContent = json.message;
+            } else {
+              resultDiv.textContent = json.error || "Server error";
+            }
+          } catch (err) {
+            resultDiv.textContent = "Network error";
+          }
+        });
+    </script>
+  </body>
 </html>
