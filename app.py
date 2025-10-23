@@ -19,10 +19,10 @@ def data():
     # Expect JSON payload with a `name` field
     payload = request.get_json(silent=True)
     if not payload:
-        return jsonify({'error': 'Invalid or missing JSON'}), 400
+        return jsonify({'error': 'Invalid or missing JSON here'}), 400
     name = payload.get('name')
     if not name:
-        return jsonify({'error': 'Missing "name" field'}), 400
+        return jsonify({'error': 'Missing "name" field ?'}), 400
 
     return jsonify({'message': f'Hello, {name}!'}), 200
 
