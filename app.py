@@ -16,7 +16,7 @@ def health():
 
 @app.route('/data', methods=['POST'])
 def data():
-# Expect JSON payload with a `name` field
+    # Expect JSON payload with a `name` field
     payload = request.get_json(silent=True)
     if not payload:
         return jsonify({'error': 'Invalid or missing JSON'}), 400
@@ -25,7 +25,6 @@ def data():
         return jsonify({'error': 'Missing "name" field'}), 400
 
 
-# Simple echo response — replace with your logic
     return jsonify({'message': f'Hello, {name}!'}), 200
 
 
